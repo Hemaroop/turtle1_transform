@@ -1,0 +1,41 @@
+image: Warehouse_3.png
+resolution: 0.175000
+origin: [-50.000000, -62.500000, 0.000000]
+negate: 0
+occupied_thresh: 0.55
+free_thresh: 0.196
+robot_dims: [0.766 0.610 0.458]
+costmap_2d: 0.30
+laser_range: 8.0
+blobfinder_range: 5.0
+markers:
+  - color: red
+    location: [ 45.0, 60.0, 0.0 ]
+  - color: green
+    location: [ 6.60, 60.0, 0.0]
+  - color: blue
+    location: [ 1.60, 60.0, 0.0]
+  - color: chocolate1
+    location: [ -39.0, 60.0, 0.0 ]
+  - color: violet 
+    location: [ -46.0, 50.0, 0.0 ]
+  - color: cyan1
+    location: [ -43.0, 21.40, 0.0 ]
+  - color: yellow1
+    location: [ -46.0, -30.3, 0.0 ]
+  - color: firebrick1
+    location: [ -46.0, -61.5, 0.0 ]
+  - color: magenta
+    location: [ 45.3, -61.2, 0.0 ]
+  - color: purple1
+    location: [ 45.3, -55.3, 0.0 ]
+  - color: pink
+    location: [ 45.3, -47.4, 0.0 ]
+  - color: DarkBlue
+    location: [ 45.3, -40.1, 0.0 ]
+  - color: maroon1
+    location: [ 45.5, 10.53, 0.0 ]
+  - color: brown1
+    location: [ 45.5, 15.56, 0.0 ]
+  - color: sienna1
+    location: [ 45.3, 36.44, 0.0 ]

@@ -1,0 +1,74 @@
+<launch>
+
+<!--Broadcasting transform between world frame and map frame-->
+<!--node pkg="turtle1_transform" type="general_tf" name="world2map"/-->
+<!--node pkg="turtle1_transform" type="map_to_odom" name="map2odom"/-->
+
+<!--Broadcasting transform between the robot's base and the camera frame -->
+<!--node pkg="turtle1_transform" type="base_to_cam" name="base2cam"/-->
+
+<!--Uncomment the following and modify the base_to_laser node if the robot is equipped with a laser rangefinder-->
+<!--node pkg="turtle1_transform" type="base_to_laser" name="base2laser"/-->
+
+  <!-- kinect nodes -->
+  <!--include file="$(find openni_launch)/launch/openni.launch"/-->
+
+  <!-- openni_manager -->
+  <!--node pkg="nodelet" type="nodelet" name="openni_manager" output="screen" respawn="true" args="manager"/-->
+
+  <!--node pkg="pcl_laser" type="pc2_pcview" name="pcl_data"/-->
+
+  <!-- fake laser to convert 3D point cloud to Laser scan data-->
+  <!--node pkg="nodelet" type="nodelet" name="kinect_laser" args="load pointcloud_to_laserscan/CloudToScan openni_manager"-->
+    <!--param name="max_height" value="0.30"/-->
+    <!--param name="min_height" value="-0.15"/-->
+    <!--param name="angle_min" value="-0.5058"/-->
+    <!--param name="angle_max" value="0.5058"/-->
+    <!--param name="range_min" value="0.50"/-->
+    <!--param name="range_max" value="6.0"/-->
+    <!--param name="output_frame_id" value="/camera_depth_frame"/-->
+    <!--remap from="cloud" to="point_cloud_pcl"/-->
+  <!--/node-->
+
+<!--Node for SLAM using laser scan data-->
+  <node pkg="my_gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+        <!--remap from="scan" to="base_scan"/-->
+        <remap from="map" to="map2"/>
+        <param name="odom_frame" value="/odom"/>
+	<param name="map_frame" value="/map"/>
+	<param name="base_frame" value="/base_link"/>
+        <param name="map_update_interval" value="1.0"/>
+        <param name="maxUrange" value="6.0"/>
+        <param name="sigma" value="0.05"/>
+        <param name="kernelSize" value="1"/>
+        <param name="lstep" value="0.05"/>
+        <param name="astep" value="0.05"/>
+        <param name="iterations" value="5"/>
+        <param name="lsigma" value="0.075"/>
+        <param name="ogain" value="3.0"/>
+        <param name="lskip" value="0"/>
+        <param name="srr" value="0.01"/>
+        <param name="srt" value="0.02"/>
+        <param name="str" value="0.01"/>
+        <param name="stt" value="0.02"/>
+        <param name="linearUpdate" value="0.20"/>     
+        <param name="angularUpdate" value="0.253"/>   
+        <param name="temporalUpdate" value="-1.0"/>
+        <param name="resampleThreshold" value="0.5"/>
+        <param name="particles" value="100"/>
+        <param name="xmin" value="-100.0"/>
+        <param name="ymin" value="-100.0"/>
+        <param name="xmax" value="100.0"/>
+        <param name="ymax" value="100.0"/>
+        <param name="delta" value="0.05"/>
+        <param name="llsamplerange" value="0.01"/>
+        <param name="llsamplestep" value="0.01"/>
+        <param name="lasamplerange" value="0.005"/>
+        <param name="lasamplestep" value="0.005"/>
+	<param name="occ_thresh" value="0.15"/>
+	<param name="maxRange" value="6.0"/>
+    </node>
+
+<node pkg="turtle1_transform" type="maps_transform" name="maps_transform"/>
+
+</launch>
